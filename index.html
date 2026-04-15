@@ -1,0 +1,2782 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Himalayan Restaurant - Experiência autêntica de culinária nepalesa num ambiente elegante e acolhedor.">
+    <title>Himalayan Restaurant | Culinária Nepalesa Autêntica</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ─── CSS Variables ─── */
+        :root {
+          --bg-dark: #0f0f0f;
+          --bg-darker: #0a0a0a;
+          --accent-gold: #c9a566;
+          --accent-warm: #e8d7c6;
+          --text-light: #f5f1ed;
+          --text-muted: #a89a8e;
+          --white: #ffffff;
+          --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          --shadow-subtle: 0 8px 32px rgba(0, 0, 0, 0.5);
+          --shadow-medium: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        /* ─── Reset & Base ─── */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        html {
+          scroll-behavior: smooth;
+        }
+
+        body {
+          font-family: 'DM Sans', sans-serif;
+          background: var(--bg-dark);
+          color: var(--text-light);
+          line-height: 1.7;
+          overflow-x: hidden;
+        }
+
+        img {
+          max-width: 100%;
+          height: auto;
+          display: block;
+        }
+
+        /* ─── Scroll Reveal ─── */
+        .reveal {
+          opacity: 0;
+          transform: translateY(40px);
+          transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .d1 { transition-delay: 0.1s; }
+        .d2 { transition-delay: 0.2s; }
+        .d3 { transition-delay: 0.3s; }
+        .d4 { transition-delay: 0.4s; }
+        .d5 { transition-delay: 0.5s; }
+
+        /* ─── Header ─── */
+        header {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 100;
+          padding: 1.5rem 4rem;
+          background: transparent;
+          transition: all 0.5s ease;
+          backdrop-filter: none;
+        }
+
+        header.scrolled {
+          background: rgba(10, 10, 10, 0.95);
+          backdrop-filter: blur(10px);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+          padding: 1rem 4rem;
+        }
+
+        .nav-container {
+          max-width: 1400px;
+          margin: 0 auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .logo {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.8rem;
+          font-weight: 600;
+          color: var(--accent-gold);
+          text-decoration: none;
+          letter-spacing: 1px;
+        }
+
+        nav {
+          display: flex;
+          gap: 3rem;
+          align-items: center;
+        }
+
+        nav a {
+          font-size: 0.9rem;
+          font-weight: 500;
+          text-decoration: none;
+          color: var(--text-light);
+          position: relative;
+          transition: color 0.3s ease;
+        }
+
+        nav a::after {
+          content: '';
+          position: absolute;
+          bottom: -6px;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: var(--accent-gold);
+          transition: width 0.4s ease;
+        }
+
+        nav a:hover {
+          color: var(--accent-gold);
+        }
+
+        nav a:hover::after {
+          width: 100%;
+        }
+
+        .btn-reserve {
+          background: var(--accent-gold);
+          color: var(--bg-dark);
+          padding: 0.7rem 1.4rem;
+          border-radius: 3px;
+          font-weight: 600;
+          font-size: 0.85rem;
+          text-decoration: none;
+          transition: all 0.3s ease;
+          border: 1px solid var(--accent-gold);
+        }
+
+        .btn-reserve:hover {
+          background: transparent;
+          color: var(--accent-gold);
+        }
+
+        .nav-mobile-btn {
+          display: none;
+          background: none;
+          border: none;
+          cursor: pointer;
+          flex-direction: column;
+          gap: 6px;
+          z-index: 101;
+        }
+
+        .nav-mobile-btn span {
+          width: 24px;
+          height: 1.5px;
+          background: var(--accent-gold);
+          transition: all 0.3s ease;
+        }
+
+        .nav-mobile-btn.active span:nth-child(1) {
+          transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .nav-mobile-btn.active span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .nav-mobile-btn.active span:nth-child(3) {
+          transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* ─── Hero Section ─── */
+        .hero {
+          position: relative;
+          width: 100%;
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          margin-top: 0;
+        }
+
+        .hero-background {
+          position: absolute;
+          inset: 0;
+          background-image: url('hero.jpg');
+          background-size: cover;
+          background-position: center;
+          z-index: 1;
+        }
+
+        .hero-background::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: rgba(10, 10, 10, 0.58);
+          z-index: 1;
+        }
+
+        .hero-content {
+          position: relative;
+          z-index: 2;
+          text-align: center;
+          max-width: 800px;
+          padding: 3rem 2.5rem;
+          background: rgba(10, 10, 10, 0.35);
+          backdrop-filter: blur(4px);
+          border-radius: 4px;
+          margin: 0 2rem;
+        }
+
+        .hero-eyebrow {
+          font-size: 0.75rem;
+          font-weight: 600;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: var(--accent-gold);
+          margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 5.5rem;
+          font-weight: 600;
+          line-height: 1.1;
+          color: var(--text-light);
+          letter-spacing: -0.02em;
+          margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+          font-size: 1.1rem;
+          color: var(--text-muted);
+          margin-bottom: 3rem;
+          line-height: 1.8;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .hero-buttons {
+          display: flex;
+          gap: 1.5rem;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .btn {
+          padding: 1rem 2.5rem;
+          font-weight: 600;
+          font-size: 0.9rem;
+          text-decoration: none;
+          transition: all 0.4s ease;
+          border: 1px solid transparent;
+          cursor: pointer;
+          display: inline-block;
+          text-align: center;
+          letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+          background: var(--accent-gold);
+          color: var(--bg-dark);
+          border: 1px solid var(--accent-gold);
+        }
+
+        .btn-primary:hover {
+          background: transparent;
+          color: var(--accent-gold);
+          transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+          background: transparent;
+          color: var(--text-light);
+          border: 1px solid var(--accent-gold);
+        }
+
+        .btn-secondary:hover {
+          background: var(--accent-gold);
+          color: var(--bg-dark);
+          transform: translateY(-2px);
+        }
+
+        /* ─── WhatsApp Button ─── */
+        .wa-float {
+          position: fixed;
+          bottom: 2rem;
+          right: 2rem;
+          width: 60px;
+          height: 60px;
+          background: #25D366;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          z-index: 999;
+          box-shadow: 0 6px 30px rgba(37, 211, 102, 0.4);
+          transition: all 0.3s ease;
+          text-decoration: none;
+          animation: wa-pulse 2s infinite;
+        }
+
+        .wa-float:hover {
+          transform: scale(1.1);
+          box-shadow: 0 8px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        @keyframes wa-pulse {
+          0%, 100% { box-shadow: 0 6px 30px rgba(37, 211, 102, 0.4); }
+          50% { box-shadow: 0 6px 40px rgba(37, 211, 102, 0.8); }
+        }
+
+        .wa-float svg {
+          width: 28px;
+          height: 28px;
+          fill: white;
+        }
+
+        /* ─── Sections ─── */
+        section {
+          padding: 7rem 4rem;
+          max-width: 1400px;
+          margin: 0 auto;
+        }
+
+        .section-label {
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--accent-gold);
+          margin-bottom: 1.2rem;
+          display: block;
+        }
+
+        h2 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 3.5rem;
+          font-weight: 600;
+          color: var(--text-light);
+          margin-bottom: 2.5rem;
+          line-height: 1.2;
+          letter-spacing: -0.01em;
+        }
+
+        h3 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.6rem;
+          font-weight: 600;
+          color: var(--text-light);
+        }
+
+        /* ─── About Section ─── */
+        .about {
+          background: var(--bg-darker);
+          padding: 8rem 4rem;
+        }
+
+        .about-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 6rem;
+          align-items: center;
+        }
+
+        .about-content {
+          margin-top: 1.5rem;
+        }
+
+        .about-text {
+          font-size: 1rem;
+          line-height: 1.85;
+          color: var(--text-muted);
+          margin-bottom: 1.5rem;
+        }
+
+        .about-image {
+          width: 100%;
+          aspect-ratio: 4/3;
+          background-image: url('foto interior.webp');
+          background-size: cover;
+          background-position: center;
+          background-color: rgba(201, 165, 102, 0.1);
+          border: 1px solid rgba(201, 165, 102, 0.15);
+          border-radius: 2px;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        /* ─── Food Gallery ─── */
+        .food-gallery {
+          background: var(--bg-dark);
+          padding: 8rem 4rem;
+        }
+
+        .gallery-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 2.5rem;
+          margin-top: 3rem;
+        }
+
+        .gallery-item {
+          position: relative;
+          overflow: hidden;
+          border: 1px solid rgba(201, 165, 102, 0.2);
+          aspect-ratio: 1;
+          cursor: pointer;
+          background: rgba(201, 165, 102, 0.05);
+        }
+
+        .gallery-image {
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, rgba(201, 165, 102, 0.2) 0%, rgba(232, 215, 198, 0.1) 100%);
+          background-size: cover;
+          background-position: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0;
+          transition: all 0.6s ease;
+        }
+
+        .gallery-item:hover .gallery-image {
+          transform: scale(1.05);
+        }
+
+        .gallery-label {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: rgba(10, 10, 10, 0.95);
+          padding: 1.5rem;
+          transform: translateY(100%);
+          transition: transform 0.4s ease;
+          border-top: 1px solid rgba(201, 165, 102, 0.2);
+        }
+
+        .gallery-item:hover .gallery-label {
+          transform: translateY(0);
+        }
+
+        .gallery-name {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: var(--accent-gold);
+          letter-spacing: 0.5px;
+        }
+
+        /* ─── Menu Section ─── */
+        .menu {
+          background: var(--bg-darker);
+          padding: 8rem 4rem;
+        }
+
+        .menu-intro {
+          max-width: 700px;
+          margin: 0 auto 3rem;
+        }
+
+        .menu-intro p {
+          color: var(--text-muted);
+          font-size: 1rem;
+          line-height: 1.8;
+        }
+
+        .menu-categories {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 3rem;
+          margin-top: 2rem;
+        }
+
+        .menu-category {
+          border-top: 1px solid rgba(201, 165, 102, 0.2);
+          padding-top: 2rem;
+        }
+
+        .menu-category h3 {
+          color: var(--accent-gold);
+          margin-bottom: 1.5rem;
+          font-size: 1.5rem;
+        }
+
+        .menu-item {
+          margin-bottom: 1.8rem;
+          padding-bottom: 1.8rem;
+          border-bottom: 1px solid rgba(201, 165, 102, 0.1);
+        }
+
+        .menu-item:last-child {
+          border-bottom: none;
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+
+        .menu-item-name {
+          font-weight: 600;
+          color: var(--text-light);
+          margin-bottom: 0.4rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+        }
+
+        .menu-item-price {
+          color: var(--accent-gold);
+          font-weight: 600;
+          font-size: 0.95rem;
+        }
+
+        .menu-item-desc {
+          font-size: 0.9rem;
+          color: var(--text-muted);
+          line-height: 1.5;
+        }
+
+        /* ─── Experience Section ─── */
+        .experience {
+          background: var(--bg-dark);
+          padding: 8rem 4rem;
+        }
+
+        .experience-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 2rem;
+          margin-top: 3rem;
+        }
+
+        .experience-item {
+          text-align: center;
+          padding: 2rem;
+          border: 1px solid rgba(201, 165, 102, 0.15);
+          transition: all 0.4s ease;
+        }
+
+        .experience-item:hover {
+          border-color: var(--accent-gold);
+          background: rgba(201, 165, 102, 0.05);
+        }
+
+        .experience-icon {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+        }
+
+        .experience-item h3 {
+          font-size: 1.2rem;
+          color: var(--text-light);
+          margin-bottom: 0.8rem;
+        }
+
+        .experience-item p {
+          font-size: 0.95rem;
+          color: var(--text-muted);
+          line-height: 1.6;
+        }
+
+        /* ─── Location Section ─── */
+        .location {
+          background: var(--bg-darker);
+          padding: 8rem 4rem;
+        }
+
+        .location-grid {
+          display: grid;
+          grid-template-columns: 1.2fr 0.8fr;
+          gap: 4rem;
+          align-items: center;
+          margin-top: 2rem;
+        }
+
+        .location-map {
+          width: 100%;
+          aspect-ratio: 4/3;
+          background: linear-gradient(135deg, rgba(201, 165, 102, 0.15) 0%, rgba(232, 215, 198, 0.08) 100%);
+          border: 1px solid rgba(201, 165, 102, 0.2);
+          border-radius: 2px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 4rem;
+        }
+
+        .location-info h3 {
+          font-size: 1.8rem;
+          color: var(--text-light);
+          margin-bottom: 1.5rem;
+        }
+
+        .location-details {
+          font-size: 0.95rem;
+          line-height: 1.85;
+          color: var(--text-muted);
+          margin-bottom: 1.5rem;
+        }
+
+        .location-details strong {
+          color: var(--accent-gold);
+        }
+
+        /* ─── CTA Section ─── */
+        .cta-final {
+          background: linear-gradient(135deg, rgba(201, 165, 102, 0.15) 0%, rgba(232, 215, 198, 0.08) 100%);
+          border: 1px solid rgba(201, 165, 102, 0.2);
+          border-radius: 2px;
+          padding: 5rem 4rem;
+          text-align: center;
+          margin-top: 4rem;
+        }
+
+        .cta-final h2 {
+          margin-bottom: 1.5rem;
+        }
+
+        .cta-final p {
+          font-size: 1.05rem;
+          color: var(--text-muted);
+          margin-bottom: 2rem;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        /* ─── Footer ─── */
+        footer {
+          background: var(--bg-darker);
+          border-top: 1px solid rgba(201, 165, 102, 0.2);
+          padding: 4rem 4rem 2rem;
+        }
+
+        .footer-content {
+          max-width: 1400px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 3rem;
+          margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: var(--accent-gold);
+          margin-bottom: 1.2rem;
+        }
+
+        .footer-col ul {
+          list-style: none;
+        }
+
+        .footer-col a {
+          color: var(--text-muted);
+          text-decoration: none;
+          font-size: 0.9rem;
+          display: block;
+          margin-bottom: 0.8rem;
+          transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+          color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+          text-align: center;
+          padding-top: 2rem;
+          border-top: 1px solid rgba(201, 165, 102, 0.1);
+          font-size: 0.85rem;
+          color: var(--text-muted);
+        }
+
+        /* ─── Mobile Menu ─── */
+        .mobile-menu {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: var(--bg-darker);
+          z-index: 99;
+          padding-top: 100px;
+          flex-direction: column;
+          gap: 1.5rem;
+          padding: 120px 2rem 2rem;
+        }
+
+        .mobile-menu.active {
+          display: flex;
+        }
+
+        .mobile-menu a {
+          font-size: 1rem;
+          text-decoration: none;
+          color: var(--text-light);
+          padding: 0.8rem 0;
+          border-bottom: 1px solid rgba(201, 165, 102, 0.1);
+        }
+
+        /* ─── Responsive Design ─── */
+        @media (max-width: 1024px) {
+          section {
+            padding: 5rem 2rem;
+          }
+
+          h2 {
+            font-size: 2.8rem;
+          }
+
+          .hero h1 {
+            font-size: 3.5rem;
+          }
+
+          .gallery-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+
+          .experience-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+
+          .about-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+          }
+
+          .location-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .menu-categories {
+            grid-template-columns: 1fr;
+          }
+
+          .footer-content {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 768px) {
+          header {
+            padding: 1.2rem 1.5rem;
+          }
+
+          header.scrolled {
+            padding: 0.8rem 1.5rem;
+          }
+
+          .logo {
+            font-size: 1.3rem;
+          }
+
+          nav {
+            display: none;
+          }
+
+          .nav-mobile-btn {
+            display: flex;
+          }
+
+          .hero h1 {
+            font-size: 2.5rem;
+          }
+
+          .hero-subtitle {
+            font-size: 0.95rem;
+          }
+
+          .hero-buttons {
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .btn {
+            width: 100%;
+            max-width: 300px;
+          }
+
+          section {
+            padding: 4rem 1.5rem;
+          }
+
+          h2 {
+            font-size: 2.2rem;
+          }
+
+          h3 {
+            font-size: 1.3rem;
+          }
+
+          .gallery-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .experience-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .footer-content {
+            grid-template-columns: 1fr;
+          }
+
+          .cta-final {
+            padding: 3rem 1.5rem;
+          }
+
+          .wa-float {
+            width: 50px;
+            height: 50px;
+            bottom: 1.5rem;
+            right: 1.5rem;
+          }
+
+          .wa-float svg {
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .hero h1 {
+            font-size: 2rem;
+          }
+
+          .hero-subtitle {
+            font-size: 0.9rem;
+          }
+
+          section {
+            padding: 3rem 1rem;
+          }
+
+          h2 {
+            font-size: 1.8rem;
+          }
+
+          .hero-buttons {
+            gap: 0.8rem;
+          }
+
+          .btn {
+            padding: 0.8rem 1.5rem;
+            font-size: 0.85rem;
+          }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ─── WhatsApp Floating Button ─── -->
+    <a href="https://wa.me/5511999999999?text=Gostaria%20de%20fazer%20uma%20reserva" class="wa-float" title="Fale conosco no WhatsApp">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
+      </svg>
+    </a>
+
+    <!-- ─── Header ─── -->
+    <header id="header">
+      <div class="nav-container">
+        <a href="#hero" class="logo">Himalayan</a>
+        <nav>
+          <a href="#sobre">Sobre</a>
+          <a href="#comidas">Comidas</a>
+          <a href="#menu">Menu</a>
+          <a href="#experiencia">Experiência</a>
+          <a href="#localizacao">Localização</a>
+        </nav>
+        <a href="https://wa.me/5511999999999?text=Gostaria%20de%20fazer%20uma%20reserva" class="btn-reserve">Reservar</a>
+        <button class="nav-mobile-btn" id="navMobileBtn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <nav class="mobile-menu" id="mobileMenu">
+        <a href="#sobre">Sobre</a>
+        <a href="#comidas">Comidas</a>
+        <a href="#menu">Menu</a>
+        <a href="#experiencia">Experiência</a>
+        <a href="#localizacao">Localização</a>
+        <a href="https://wa.me/5511999999999?text=Gostaria%20de%20fazer%20uma%20reserva" class="btn-reserve">Reservar</a>
+      </nav>
+    </header>
+
+    <!-- ─── Hero Section ─── -->
+    <section class="hero" id="hero">
+      <div class="hero-background"></div>
+      <div class="hero-content reveal">
+        <div class="hero-eyebrow">Bem-vindo ao Himalayan</div>
+        <h1>Autêntica Gastronomia Nepalesa</h1>
+        <p class="hero-subtitle">Experiência autêntica num ambiente acolhedor. Receitas transmitidas por gerações, preparadas com ingredientes frescos e paixão pela culinária nepalesa.</p>
+        <div class="hero-buttons">
+          <a href="https://wa.me/5511999999999?text=Gostaria%20de%20fazer%20uma%20reserva" class="btn btn-primary">Reservar Agora</a>
+          <a href="#menu" class="btn btn-secondary">Ver Menu</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── About Section ─── -->
+    <section class="about" id="sobre">
+      <span class="section-label">Nossa História</span>
+      <h2>Tradição e Paixão</h2>
+      <div class="about-grid reveal">
+        <div class="about-content">
+          <p class="about-text">O Himalayan é mais que um restaurante. É um espaço dedicado à preservação da autêntica gastronomia nepalesa — receitas familiares passadas por gerações, técnicas ancestrais e a utilização de ingredientes frescos selecionados diariamente.</p>
+          <p class="about-text">Cada prato é preparado com dedicação e respeito pela tradição, oferecendo uma experiência genuína que nos transporta aos pés do Himalaia.</p>
+          <p class="about-text">Seja para uma refeição casual ou uma ocasião especial, o Himalayan oferece um ambiente acolhedor, atendimento atencioso e comida de qualidade excepcional.</p>
+        </div>
+        <div class="about-image reveal d1"></div>
+      </div>
+    </section>
+
+    <!-- ─── Food Gallery ─── -->
+    <section class="food-gallery" id="comidas">
+      <span class="section-label">Nossa Seleção</span>
+      <h2>Pratos Que Falam</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal d1">
+          <div class="gallery-image"></div>
+          <div class="gallery-label">
+            <div class="gallery-name">Momo</div>
+          </div>
+        </div>
+        <div class="gallery-item reveal d2">
+          <div class="gallery-image"></div>
+          <div class="gallery-label">
+            <div class="gallery-name">Thukpa</div>
+          </div>
+        </div>
+        <div class="gallery-item reveal d3">
+          <div class="gallery-image"></div>
+          <div class="gallery-label">
+            <div class="gallery-name">Dal Bhat</div>
+          </div>
+        </div>
+        <div class="gallery-item reveal d1">
+          <div class="gallery-image"></div>
+          <div class="gallery-label">
+            <div class="gallery-name">Chicken Tikka</div>
+          </div>
+        </div>
+        <div class="gallery-item reveal d2">
+          <div class="gallery-image"></div>
+          <div class="gallery-label">
+            <div class="gallery-name">Lamb Curry</div>
+          </div>
+        </div>
+        <div class="gallery-item reveal d3">
+          <div class="gallery-image"></div>
+          <div class="gallery-label">
+            <div class="gallery-name">Rogan Josh</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Menu Section ─── -->
+    <section class="menu" id="menu">
+      <span class="section-label">Exploração</span>
+      <h2>Cardápio</h2>
+      <div class="menu-intro reveal">
+        <p>Uma cuidadosa seleção de pratos autênticos, preparados segundo receitas tradicionais nepalesas. Cada prato é uma viagem aos sabores genuínos do Himalaia.</p>
+      </div>
+      <div class="menu-categories">
+        <div class="reveal d1">
+          <div class="menu-category">
+            <h3>PARATHA</h3>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Aloo Paratha
+                <span class="menu-item-price">€3.50</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Paneer Paratha
+                <span class="menu-item-price">€4.00</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Laccha Paratha
+                <span class="menu-item-price">€3.50</span>
+              </div>
+            </div>
+            <h3 style="margin-top: 1.5rem; color: var(--accent-gold); font-size: 1.5rem;">RICE</h3>
+            <div class="menu-item" style="margin-top: 1rem;">
+              <div class="menu-item-name">
+                Basmati Rice
+                <span class="menu-item-price">€3.00</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Jeera Rice
+                <span class="menu-item-price">€3.50</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Chicken Fried Rice
+                <span class="menu-item-price">€7.99</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Egg Fried Rice
+                <span class="menu-item-price">€6.99</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Kashmiri Pulwao
+                <span class="menu-item-price">€6.99</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal d2">
+          <div class="menu-category">
+            <h3>NEPALESE AUTHENTIC APPETIZERS</h3>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Choila (Chicken/Lamb)
+                <span class="menu-item-price">€6.99 / €7.99</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Sadeko (Chicken/Pork)
+                <span class="menu-item-price">€7.25</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Sukuti
+                <span class="menu-item-price">€5.99</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Bhutan
+                <span class="menu-item-price">€5.99</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Sekuwa (Pork/Chicken)
+                <span class="menu-item-price">€7.99</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Stick Sausage
+                <span class="menu-item-price">€7.20</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Chicken Lolipop
+                <span class="menu-item-price">€7.20</span>
+              </div>
+            </div>
+            <h3 style="margin-top: 1.5rem; color: var(--accent-gold); font-size: 1.5rem;">MOMO</h3>
+            <div class="menu-item" style="margin-top: 1rem;">
+              <div class="menu-item-name">
+                Chicken Momo
+                <span class="menu-item-price">€7.50</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Veg Momo
+                <span class="menu-item-price">€6.00</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Pork Momo
+                <span class="menu-item-price">€7.99</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Jhol Momo
+                <span class="menu-item-price">€7.80</span>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">
+                Himalayan Special Momo
+                <span class="menu-item-price">€8.50</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cta-final reveal">
+        <p>Deseja conhecer nosso cardápio completo? Entre em contacto connosco via WhatsApp</p>
+        <a href="https://wa.me/5511999999999?text=Gostaria%20de%20conhecer%20o%20cardápio%20completo" class="btn btn-primary">Cardápio Completo</a>
+      </div>
+    </section>
+
+    <!-- ─── Experience Section ─── -->
+    <section class="experience" id="experiencia">
+      <span class="section-label">O Que Oferecemos</span>
+      <h2>A Experiência</h2>
+      <div class="experience-grid">
+        <div class="experience-item reveal d1">
+          <div class="experience-icon">🌟</div>
+          <h3>Atmosfera Acolhedora</h3>
+          <p>Ambiente elegante e minimalista, perfeito para relaxar e apreciar uma boa refeição.</p>
+        </div>
+        <div class="experience-item reveal d2">
+          <div class="experience-icon">👨‍🍳</div>
+          <h3>Receitas Autênticas</h3>
+          <p>Pratos preparados segundo técnicas tradicionais nepalesas, passadas por gerações.</p>
+        </div>
+        <div class="experience-item reveal d3">
+          <div class="experience-icon">🥗</div>
+          <h3>Ingredientes Frescos</h3>
+          <p>Seleção diária de ingredientes premium para garantir a qualidade de cada prato.</p>
+        </div>
+        <div class="experience-item reveal d4">
+          <div class="experience-icon">😊</div>
+          <h3>Atendimento Atento</h3>
+          <p>Equipa dedicada em tornar sua visita memorável e acolhedora.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Location Section ─── -->
+    <section class="location" id="localizacao">
+      <span class="section-label">Visite-nos</span>
+      <h2>Localização</h2>
+      <div class="location-grid reveal">
+        <div class="location-map">📍</div>
+        <div class="location-info reveal d1">
+          <h3>Venha Conhecer</h3>
+          <p class="location-details">
+            <strong>Endereço:</strong><br>
+            HIMALAYAN DINE-IN RESTAURANT<br>
+            R. 14 Outubro 617, 4430-051<br>
+            Vila Nova de Gaia<br><br>
+            
+            <strong>Telefone:</strong><br>
+            920 096 331<br><br>
+            
+            <strong>Horários:</strong><br>
+            Terça: 12:00–15:00, 17:00–23:00<br>
+            Quarta: 12:00–23:00<br>
+            Quinta a Domingo: 12:00–15:00, 17:00–23:00<br>
+            Segunda: Fechado
+          </p>
+          <a href="https://www.google.com/maps/dir//HIMALAYAN+DINE-IN+RESTAURANT(Nepali+and+Indian+restaurant),+R.+14+Outubro+617,+4430-051+Vila+Nova+de+Gaia/@41.1294169,-8.6037047,17z/data=!4m17!1m7!3m6!1s0xd24650856bf67cf:0x66d102636abbb074!2sHIMALAYAN+DINE-IN+RESTAURANT(Nepali+and+Indian+restaurant)!8m2!3d41.1294169!4d-8.6037047!16s%2Fg%2F11ldr6pvlp!4m8!1m0!1m5!1m1!1s0xd24650856bf67cf:0x66d102636abbb074!2m2!1d-8.6037213!2d41.1294084!3e0?entry=ttu&g_ep=EgoyMDI2MDQxMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-primary">Ver no Mapa</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Footer ─── -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-col">
+          <h4>Himalayan</h4>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">Experiência autêntica de gastronomia nepalesa no coração da cidade.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Menu</h4>
+          <ul>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#comidas">Comidas</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#experiencia">Experiência</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="tel:+351920096331">920 096 331</a></li>
+            <li><a href="mailto:info@himalayandine-in.com">info@himalayandine-in.com</a></li>
+            <li><a href="#">R. 14 Outubro 617</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Redes Sociais</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Himalayan Restaurant. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <script>
+      // ─── Mobile Menu Toggle ─── 
+      const navMobileBtn = document.getElementById('navMobileBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      navMobileBtn.addEventListener('click', () => {
+        navMobileBtn.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+      });
+
+      // Close mobile menu on link click
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMobileBtn.classList.remove('active');
+          mobileMenu.classList.remove('active');
+        });
+      });
+
+      // ─── Header Scroll Effect ─── 
+      window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+
+      // ─── Scroll Reveal Animation ─── 
+      const revealElements = document.querySelectorAll('.reveal');
+
+      const revealOnScroll = () => {
+        revealElements.forEach(element => {
+          const elementTop = element.getBoundingClientRect().top;
+          const elementBottom = element.getBoundingClientRect().bottom;
+          const isVisible = elementTop < window.innerHeight && elementBottom > 0;
+
+          if (isVisible) {
+            element.classList.add('visible');
+          }
+        });
+      };
+
+      window.addEventListener('scroll', revealOnScroll);
+      revealOnScroll(); // Initial check
+    </script>
+
+</body>
+</html>
+
+        .wa-float:hover {
+          transform: scale(1.1);
+          box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        @keyframes wa-pulse {
+          0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); }
+          50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.8); }
+        }
+
+        .wa-float svg {
+          width: 30px;
+          height: 30px;
+          fill: white;
+        }
+
+        /* ─── Header / Navigation ─── */
+        header {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 100;
+          padding: 1.25rem 2rem;
+          background: rgba(255, 255, 255, 0.95);
+          transition: all 0.3s ease;
+          backdrop-filter: blur(10px);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0);
+        }
+
+        header.scrolled {
+          background: rgba(255, 255, 255, 0.98);
+          box-shadow: var(--shadow-md);
+          padding: 1rem 2rem;
+        }
+
+        .nav-container {
+          max-width: 1400px;
+          margin: 0 auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .logo {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.8rem;
+          font-weight: 600;
+          color: var(--dark-slate);
+          text-decoration: none;
+          letter-spacing: 0.5px;
+        }
+
+        .logo span {
+          color: var(--accent-gold);
+        }
+
+        nav {
+          display: flex;
+          gap: 3rem;
+          align-items: center;
+        }
+
+        nav a {
+          font-size: 0.95rem;
+          font-weight: 500;
+          text-decoration: none;
+          color: var(--text-dark);
+          position: relative;
+          transition: color 0.3s ease;
+        }
+
+        nav a::after {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background: var(--secondary-blue);
+          transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+          width: 100%;
+        }
+
+        .nav-cta {
+          background: var(--accent-gold);
+          color: var(--dark-slate);
+          padding: 0.75rem 1.5rem;
+          border-radius: 25px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: all 0.3s ease;
+          box-shadow: var(--shadow-sm);
+        }
+
+        .nav-cta:hover {
+          background: var(--secondary-blue);
+          color: white;
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-md);
+        }
+
+        .nav-cta::after {
+          display: none;
+        }
+
+        /* ─── Mobile Menu ─── */
+        .nav-mobile-btn {
+          display: none;
+          background: none;
+          border: none;
+          cursor: pointer;
+          flex-direction: column;
+          gap: 5px;
+          padding: 0.5rem;
+          z-index: 101;
+        }
+
+        .nav-mobile-btn span {
+          width: 25px;
+          height: 2.5px;
+          background: var(--black);
+          border-radius: 2px;
+          transition: all 0.3s ease;
+        }
+
+        .nav-mobile-btn.active span:nth-child(1) {
+          transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .nav-mobile-btn.active span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .nav-mobile-btn.active span:nth-child(3) {
+          transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        .mobile-menu {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: var(--white);
+          z-index: 99;
+          padding-top: 100px;
+          flex-direction: column;
+          gap: 1rem;
+          padding: 120px 2rem 2rem;
+        }
+
+        .mobile-menu.active {
+          display: flex;
+        }
+
+        .mobile-menu a {
+          font-size: 1.1rem;
+          font-weight: 500;
+          text-decoration: none;
+          color: var(--text-dark);
+          padding: 0.75rem 0;
+          border-bottom: 1px solid rgba(42, 127, 184, 0.15);
+        }
+
+        .mobile-menu .nav-cta {
+          margin-top: 1rem;
+          text-align: center;
+        }
+
+        .mobile-close {
+          position: absolute;
+          top: 2rem;
+          right: 2rem;
+          background: none;
+          border: none;
+          font-size: 2rem;
+          cursor: pointer;
+          color: var(--text-dark);
+        }
+
+        /* ─── Hero Section ─── */
+        /* ─── Hero Section ─── */
+        .hero {
+          min-height: 100vh;
+          display: grid;
+          grid-template-columns: 1.05fr 0.95fr;
+          align-items: center;
+          gap: 3rem;
+          padding: 120px 4rem 80px;
+          background: linear-gradient(135deg, #2d5a7b 0%, #2a7fb8 40%, #4a9fd8 100%);
+          position: relative;
+          overflow: hidden;
+          color: var(--white);
+        }
+
+        .hero::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          right: -10%;
+          width: 700px;
+          height: 700px;
+          background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
+          border-radius: 50%;
+          animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: -10%;
+          width: 120%;
+          height: 200px;
+          background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.1) 30%, rgba(42, 127, 184, 0.3) 100%);
+          pointer-events: none;
+          opacity: 0.8;
+        }
+
+        .hero-content {
+          position: relative;
+          z-index: 2;
+          max-width: 580px;
+        }
+
+        .hero-visual {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          z-index: 2;
+        }
+
+        .hero-image {
+          width: 100%;
+          max-width: 580px;
+          aspect-ratio: 4 / 5;
+          border-radius: 30px;
+          overflow: hidden;
+          display: flex;
+          align-items: flex-end;
+          justify-content: flex-end;
+          box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+          position: relative;
+          background-size: cover;
+          background-position: center;
+        }
+
+        .hero::before {
+          content: '';
+          position: absolute;
+          top: -60%;
+          right: -20%;
+          width: 650px;
+          height: 650px;
+          background: radial-gradient(circle, rgba(201, 116, 47, 0.22) 0%, transparent 70%);
+          border-radius: 50%;
+          animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: -10%;
+          width: 120%;
+          height: 220px;
+          background: linear-gradient(180deg, transparent 0%, rgba(248, 241, 232, 0.16) 45%, rgba(18, 18, 18, 0.86) 100%);
+          clip-path: polygon(0 45%, 12% 33%, 24% 48%, 34% 21%, 46% 44%, 56% 17%, 68% 39%, 80% 26%, 92% 46%, 100% 38%, 100% 100%, 0 100%);
+          pointer-events: none;
+          opacity: 0.75;
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
+          position: relative;
+          z-index: 2;
+        }
+
+        .hero-eyebrow {
+          font-size: 0.75rem;
+          font-weight: 600;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.9);
+          margin-bottom: 1.5rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .hero-eyebrow::before {
+          content: '';
+          width: 20px;
+          height: 3px;
+          background: rgba(255, 255, 255, 0.7);
+        }
+
+        h1 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 4rem;
+          font-weight: 600;
+          line-height: 1.1;
+          color: var(--white);
+          margin-bottom: 1.5rem;
+          letter-spacing: -0.02em;
+        }
+
+        h1 em {
+          font-style: normal;
+          color: var(--accent-gold);
+          font-weight: 700;
+        }
+
+        .hero-subtitle {
+          font-size: 1.15rem;
+          color: rgba(255, 255, 255, 0.9);
+          margin-bottom: 2rem;
+          line-height: 1.8;
+          max-width: 520px;
+        }
+
+        .hero-features {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1rem;
+          margin-bottom: 2.5rem;
+          padding-bottom: 2.5rem;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-feature {
+          text-align: center;
+          background: rgba(255, 247, 238, 0.12);
+          border-radius: 24px;
+          padding: 1rem 1.4rem;
+          box-shadow: inset 0 1px 2px rgba(255, 255, 250, 0.08);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(255, 248, 236, 0.18);
+        }
+
+        .hero-feature-title {
+          font-weight: 700;
+          font-size: 0.9rem;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          color: rgba(255, 255, 255, 0.98);
+          margin-top: 0.9rem;
+        }
+
+        .feature-icon {
+          width: 50px;
+          height: 50px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 16px;
+          background: rgba(255, 255, 255, 0.16);
+          color: var(--white);
+        }
+
+        .feature-icon svg {
+          width: 24px;
+          height: 24px;
+        }
+
+        .hero-btns {
+          display: flex;
+          gap: 1.5rem;
+          flex-wrap: wrap;
+        }
+
+        .btn {
+          padding: 1rem 2rem;
+          border-radius: 30px;
+          font-weight: 600;
+          font-size: 0.95rem;
+          text-decoration: none;
+          transition: var(--transition);
+          border: 2px solid transparent;
+          cursor: pointer;
+          display: inline-block;
+          text-align: center;
+        }
+
+        .btn-primary {
+          background: linear-gradient(135deg, var(--accent-gold) 0%, #c0935f 100%);
+          color: var(--dark-slate);
+          box-shadow: 0 12px 32px rgba(212, 166, 110, 0.28);
+        }
+
+        .btn-primary:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 18px 48px rgba(212, 166, 110, 0.36);
+        }
+
+        .btn-secondary {
+          background: rgba(255, 250, 242, 0.95);
+          color: var(--text-dark);
+          border: 2px solid rgba(185, 143, 86, 0.55);
+        }
+
+        .btn-secondary:hover {
+          background: rgba(255, 255, 255, 1);
+          color: var(--secondary-blue);
+          border-color: var(--secondary-blue);
+          transform: translateY(-4px);
+        }
+
+        .hero-visual {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .hero-image {
+          width: 100%;
+          max-width: 580px;
+          aspect-ratio: 4 / 5;
+          border-radius: 32px;
+          overflow: hidden;
+          display: flex;
+          align-items: flex-end;
+          justify-content: flex-end;
+          box-shadow: 0 30px 80px rgba(20, 10, 10, 0.38);
+          position: relative;
+          background-size: cover;
+          background-position: center;
+          border: 1px solid rgba(255, 248, 235, 0.16);
+        }
+
+        .hero-image::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.54) 100%);
+        }
+
+        .hero-image::before {
+          content: '';
+        }
+
+        /* ─── About Section ─── */
+        section {
+          padding: 6rem 4rem;
+          max-width: 1400px;
+          margin: 0 auto;
+        }
+
+        .section-label {
+          font-size: 0.75rem;
+          font-weight: 600;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: var(--secondary-blue);
+          margin-bottom: 1rem;
+          display: block;
+        }
+
+        h2 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 2.8rem;
+          font-weight: 600;
+          color: var(--dark-slate);
+          margin-bottom: 2rem;
+          line-height: 1.2;
+        }
+
+        h2 em {
+          color: var(--secondary-blue);
+          font-style: normal;
+        }
+
+        .about-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 4rem;
+          align-items: center;
+        }
+
+        .about-text {
+          font-size: 1rem;
+          line-height: 1.8;
+          color: var(--text-muted);
+        }
+
+        .about-image {
+          width: 100%;
+          aspect-ratio: 4/3;
+          background: linear-gradient(135deg, rgba(139, 38, 53, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+          border-radius: 20px;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 5rem;
+          box-shadow: var(--shadow-lg);
+        }
+
+        .about-image::before {
+          content: '';
+        }
+
+        /* ─── Gallery Section ─── */
+        .gallery {
+          background: var(--light-sky);
+        }
+
+        .menu-preview-copy {
+          padding: 1rem 0;
+        }
+
+        .menu-preview-copy h3 {
+          font-size: 1.9rem;
+          margin-bottom: 1rem;
+          line-height: 1.2;
+        }
+
+        .menu-preview-copy p {
+          color: var(--text-muted);
+          line-height: 1.8;
+        }
+
+        .menu-preview-copy .section-label {
+          color: var(--secondary-blue);
+          margin-bottom: 1rem;
+        }
+
+        .gallery-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 2rem;
+          margin-top: 3rem;
+        }
+
+        .gallery-card {
+          background: rgba(255, 255, 255, 0.98);
+          border-radius: 15px;
+          overflow: hidden;
+          box-shadow: var(--shadow-sm);
+          transition: var(--transition);
+          cursor: pointer;
+        }
+
+        .gallery-card:hover {
+          transform: translateY(-8px);
+          box-shadow: var(--shadow-md);
+        }
+
+        .gallery-card:hover {
+          transform: translateY(-8px);
+          box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-image {
+          width: 100%;
+          aspect-ratio: 1;
+          background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(139, 38, 53, 0.1) 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 3rem;
+          overflow: hidden;
+        }
+
+        .gallery-content {
+          padding: 1.5rem;
+        }
+
+        .gallery-title {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.4rem;
+          font-weight: 600;
+          color: var(--dark-slate);
+          margin-bottom: 0.5rem;
+        }
+
+        .gallery-desc {
+          font-size: 0.9rem;
+          color: var(--text-muted);
+          line-height: 1.6;
+        }
+
+        /* ─── Menu Section ─── */
+        .menu {
+          background: var(--soft-white);
+        }
+
+        .menu-preview {
+          background: rgba(240, 248, 253, 0.95);
+          padding: 2.2rem 2.4rem;
+          border-radius: 28px;
+          border: 1px solid rgba(74, 159, 216, 0.15);
+          box-shadow: 0 8px 32px rgba(26, 58, 82, 0.08);
+          margin-bottom: 2rem;
+          max-width: 980px;
+        }
+
+        .menu-category {
+          padding: 2rem;
+          background: rgba(255, 255, 255, 0.96);
+          border-radius: 24px;
+          border-left: 6px solid var(--secondary-blue);
+          box-shadow: var(--shadow-sm);
+        }
+
+        .menu-category h3 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.6rem;
+          font-weight: 600;
+          color: var(--dark-slate);
+          margin-bottom: 1.5rem;
+        }
+
+        .menu-item {
+          margin-bottom: 1.5rem;
+          padding-bottom: 1.5rem;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .menu-item:last-child {
+          border-bottom: none;
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+
+        .menu-name {
+          font-weight: 600;
+          color: var(--dark-slate);
+          margin-bottom: 0.3rem;
+        }
+
+        .menu-desc {
+          font-size: 0.85rem;
+          color: var(--text-muted);
+          line-height: 1.5;
+        }
+
+        .menu-price {
+          font-weight: 600;
+          color: var(--secondary-blue);
+          margin-top: 0.5rem;
+          font-size: 0.9rem;
+        }
+
+        .menu-cta {
+          text-align: center;
+          margin-top: 2rem;
+        }
+
+        /* ─── Why Choose Us ─── */
+        .why-choose {
+          background: linear-gradient(180deg, var(--light-sky) 0%, rgba(240, 248, 253, 0.8) 100%);
+        }
+
+        .why-card {
+          background: rgba(255, 255, 255, 0.97);
+          padding: 2rem;
+          border-radius: 20px;
+          text-align: center;
+          box-shadow: var(--shadow-sm);
+          transition: var(--transition);
+          border-top: 4px solid var(--secondary-blue);
+        }
+
+        .why-card:hover {
+          transform: translateY(-8px);
+          box-shadow: var(--shadow-md);
+        }
+
+        .why-icon svg {
+          stroke: var(--secondary-blue);
+        }
+
+        .why-icon {
+          width: 64px;
+          height: 64px;
+          margin: 0 auto 1rem;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 18px;
+          background: rgba(74, 159, 216, 0.12);
+          color: var(--secondary-blue);
+        }
+
+        .why-icon svg {
+          width: 32px;
+          height: 32px;
+        }
+
+
+        .why-icon svg {
+          width: 32px;
+          height: 32px;
+        }
+
+        .why-card:hover {
+          transform: translateY(-8px);
+          box-shadow: var(--shadow-md);
+        }
+
+        .why-icon {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+        }
+
+        .why-card h3 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.3rem;
+          font-weight: 600;
+          color: var(--black);
+          margin-bottom: 1rem;
+        }
+
+        .why-card p {
+          font-size: 0.9rem;
+          color: var(--text-muted);
+          line-height: 1.6;
+        }
+
+        /* ─── Hours Section ─── */
+        .hours {
+          background: var(--black);
+          color: white;
+          padding: 4rem;
+          text-align: center;
+        }
+
+        .hours h2 {
+          color: white;
+          margin-bottom: 2rem;
+        }
+
+        .hours-content {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 3rem;
+          max-width: 800px;
+          margin: 0 auto;
+          margin-top: 2rem;
+        }
+
+        .hours-item {
+          padding: 2rem;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 15px;
+          border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .hours-day {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.4rem;
+          font-weight: 600;
+          color: var(--secondary-blue);
+          margin-bottom: 0.5rem;
+        }
+
+        .hours-time {
+          font-size: 1.1rem;
+          color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* ─── Location Section ─── */
+        .location {
+          background: linear-gradient(180deg, rgba(240, 248, 253, 0.9) 0%, rgba(230, 243, 251, 0.9) 100%);
+        }
+
+        .location-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 3rem;
+          align-items: center;
+          margin-top: 2rem;
+        }
+
+        .location-map {
+          width: 100%;
+          aspect-ratio: 1;
+          background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(139, 38, 53, 0.1) 100%);
+          border-radius: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 4rem;
+          box-shadow: var(--shadow-lg);
+        }
+
+        .location-map::before {
+          content: '';
+        }
+
+        .location-info h3 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.6rem;
+          font-weight: 600;
+          color: var(--black);
+          margin-bottom: 1.5rem;
+        }
+
+        .location-details {
+          font-size: 1rem;
+          line-height: 1.8;
+          color: var(--text-muted);
+          margin-bottom: 1.5rem;
+        }
+
+        .location-details strong {
+          color: var(--text-dark);
+        }
+
+        /* ─── CTA Section ─── */
+        .cta-block {
+          background: linear-gradient(135deg, var(--secondary-blue) 0%, var(--primary-blue) 100%);
+          color: white;
+          text-align: center;
+          padding: 5rem 2rem;
+          border-radius: 20px;
+        }
+
+        .cta-block h2 {
+          color: white;
+          margin-bottom: 1rem;
+        }
+
+        .cta-block p {
+          font-size: 1.1rem;
+          margin-bottom: 2rem;
+          opacity: 0.95;
+        }
+
+        /* ─── Footer ─── */
+        footer {
+          background: var(--black);
+          color: white;
+          padding: 3rem 4rem 1rem;
+        }
+
+        .footer-content {
+          max-width: 1400px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 2rem;
+          margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-bottom: 1rem;
+          color: var(--accent-gold);
+        }
+
+        .footer-col ul {
+          list-style: none;
+        }
+
+        .footer-col a {
+          color: rgba(255, 255, 255, 0.7);
+          text-decoration: none;
+          font-size: 0.9rem;
+          display: block;
+          margin-bottom: 0.8rem;
+          transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+          color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+          text-align: center;
+          padding-top: 2rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          font-size: 0.85rem;
+          color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 1024px) {
+          h1 {
+            font-size: 3rem;
+          }
+
+          .hero {
+            grid-template-columns: 1fr;
+            padding: 120px 2rem 60px;
+          }
+
+          .gallery-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+
+          .why-choose-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+
+          .menu-categories {
+            grid-template-columns: 1fr;
+          }
+
+          .footer-content {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 768px) {
+          section {
+            padding: 4rem 2rem;
+          }
+
+          .hero {
+            padding: 100px 1.5rem 40px;
+          }
+
+          h1 {
+            font-size: 2.2rem;
+          }
+
+          h2 {
+            font-size: 1.8rem;
+          }
+
+          .nav-mobile-btn {
+            display: flex;
+          }
+
+          nav {
+            display: none;
+          }
+
+          .nav-container {
+            flex-wrap: wrap;
+          }
+
+          .hero-features {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+          }
+
+          .hero-feature-title {
+            text-align: left;
+          }
+
+          .hero-btns {
+            flex-direction: column;
+          }
+
+          .btn {
+            width: 100%;
+          }
+
+          .about-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+          }
+
+          .gallery-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .why-choose-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .location-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .hours-content {
+            grid-template-columns: 1fr;
+          }
+
+          .footer-content {
+            grid-template-columns: 1fr;
+          }
+
+          .wa-float {
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 50px;
+            height: 50px;
+          }
+
+          .wa-float svg {
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          header {
+            padding: 1rem 1rem;
+          }
+
+          .logo {
+            font-size: 1.3rem;
+          }
+
+          h1 {
+            font-size: 1.8rem;
+          }
+
+          h2 {
+            font-size: 1.4rem;
+          }
+
+          section {
+            padding: 3rem 1rem;
+          }
+
+          .hero {
+            padding: 80px 1rem 30px;
+          }
+
+          .gallery-title {
+            font-size: 1.1rem;
+          }
+
+          .btn {
+            font-size: 0.85rem;
+            padding: 0.85rem 1.5rem;
+          }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ─── WhatsApp Floating Button ─── -->
+    <a href="https://wa.me/5511999999999?text=Gostaria%20de%20fazer%20uma%20reserva" class="wa-float" title="Fale conosco no WhatsApp">
+      <svg viewBox="0 0 24 24">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
+      </svg>
+    </a>
+
+    <!-- Header -->
+    <header id="header">
+      <div class="nav-container">
+        <a href="#hero" class="logo">Himalayan <span>Dine-In</span></a>
+        <nav>
+          <a href="#about">Sobre</a>
+          <a href="#gallery">Pratos</a>
+          <a href="#menu">Menu</a>
+          <a href="#hours">Horários</a>
+          <a href="#location">Localização</a>
+          <a href="https://wa.me/351920096331?text=Olá%20Himalayan%20Restaurant%2C%20gostaria%20de%20fazer%20uma%20reserva" target="_blank" class="nav-cta">Reservar</a>
+        </nav>
+        <button class="nav-mobile-btn" id="navMobileBtn" aria-label="Alterar menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="mobile-close" onclick="toggleMenu()">✕</button>
+      <a href="#about" onclick="toggleMenu()">Sobre</a>
+      <a href="#gallery" onclick="toggleMenu()">Pratos</a>
+      <a href="#menu" onclick="toggleMenu()">Menu</a>
+      <a href="#hours" onclick="toggleMenu()">Horários</a>
+      <a href="#location" onclick="toggleMenu()">Localização</a>
+      <a href="https://wa.me/351920096331?text=Olá%20Himalayan%20Restaurant%2C%20gostaria%20de%20fazer%20uma%20reserva" target="_blank" class="nav-cta" onclick="toggleMenu()">Reservar</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero-content">
+        <span class="hero-eyebrow reveal">Bem-vindo ao Nepal</span>
+        <h1 class="reveal d1">Experimente Sabores <em>Nepaleses</em> Autênticos</h1>
+        <p class="hero-subtitle reveal d2">Descubra o calor da culinária himalaia no nosso espaço acolhedor e moderno. Preparado com tradição e servido com paixão.</p>
+        
+        <div class="hero-features reveal d3">
+          <div class="hero-feature">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12h18" />
+                <path d="M5 12l2-7h10l2 7" />
+                <path d="M12 12v7" />
+              </svg>
+            </div>
+            <p class="hero-feature-title">Comer no Local</p>
+          </div>
+          <div class="hero-feature">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 7h14v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7z" />
+                <path d="M5 7l4-4h6l4 4" />
+                <path d="M9 14h6" />
+              </svg>
+            </div>
+            <p class="hero-feature-title">Para Levar</p>
+          </div>
+          <div class="hero-feature">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 16v1a2 2 0 0 0 2 2h1" />
+                <path d="M21 16v1a2 2 0 0 1-2 2h-1" />
+                <path d="M5 16l3-8h8l3 8" />
+                <path d="M6 9h12" />
+              </svg>
+            </div>
+            <p class="hero-feature-title">Entrega</p>
+          </div>
+        </div>
+
+        <div class="hero-btns reveal d4">
+          <a href="https://wa.me/351920096331?text=Olá%20Himalayan%20Restaurant%2C%20gostaria%20de%20fazer%20uma%20reserva" target="_blank" class="btn btn-primary">Reservar no WhatsApp</a>
+          <a href="#menu" class="btn btn-secondary">Ver Menu</a>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal d3">
+        <div class="hero-image" style="background-image: url('hero.jpg'); background-size: cover; background-position: center;"></div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+      <span class="section-label">Sobre Nós</span>
+      <h2 class="reveal">Trazemos o <em>Nepal</em> à Sua Mesa</h2>
+
+      <div class="about-grid">
+        <div class="about-text reveal d1">
+          <p>Bem-vindo ao Himalayan Dine-In Restaurant, onde a culinária nepalesa autêntica encontra a hospitalidade moderna. Os nossos chefs preparam cada prato com receitas tradicionais transmitidas através de gerações, usando ingredientes de qualidade e técnicas culinárias preservadas.</p>
+          <p style="margin-top: 1.5rem;">Quer procure um jantar intimista, um almoço casual com amigos ou uma rápida refeição para levar, a nossa atmosfera acolhedora e convidativa é criada para tornar cada visita memorável. Desde os nossos famosos momos até currys aromáticos e preparações de arroz temperado, cada prato conta uma história dos Himalaias.</p>
+        </div>
+        <div class="about-image reveal d2" style="background-image: url('foto interior.webp'); background-size: cover; background-position: center;"></div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+      <span class="section-label">Pratos Especiais</span>
+      <h2 class="reveal">Os Nossos <em>Destaques</em> Culinários</h2>
+
+      <div class="gallery-grid">
+        <div class="gallery-card reveal d1">
+          <div class="gallery-image" style="background-image: url('foto momo.webp'); background-size: cover; background-position: center;"></div>
+          <div class="gallery-content">
+            <div class="gallery-title">Momos de Frango</div>
+            <p class="gallery-desc">Bolinhas de massa cozidas ao vapor recheadas com frango temperado, servidas com molho tradicional de tomate e pimenta.</p>
+          </div>
+        </div>
+
+        <div class="gallery-card reveal d2">
+          <div class="gallery-image" style="background-image: url('foto comida.webp'); background-size: cover; background-position: center;"></div>
+          <div class="gallery-content">
+            <div class="gallery-title">Muttaan Thali</div>
+            <p class="gallery-desc">Curry aromático de cabra servido com arroz, dal e vegetais frescos. Um clássico nepalês verdadeiro.</p>
+          </div>
+        </div>
+
+        <div class="gallery-card reveal d3">
+          <div class="gallery-image" style="background-image: url('foto comida 1.webp'); background-size: cover; background-position: center;"></div>
+          <div class="gallery-content">
+            <div class="gallery-title">Paneer Chowmein</div>
+            <p class="gallery-desc">Macarrão crocante com queijo, vegetais frescos e especiarias autênticas nepalesas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+      <span class="section-label">Menu</span>
+      <h2 class="reveal">Explore as Nossas <em>Iguarias</em></h2>
+
+      <div class="menu-preview reveal d1">
+        <div class="menu-preview-copy">
+          <span class="section-label">Menu Real</span>
+          <h3>Veja o menu autêntico com preços verdadeiros</h3>
+          <p>O menu do restaurante está agora integrado nesta página para dar uma apresentação mais fiel e atrativa. Ideal para mostrar ao cliente como o seu restaurante realmente aparece online.</p>
+        </div>
+      </div>
+
+      <div class="menu-categories reveal d1">
+        <div class="menu-category">
+          <h3>Entradas</h3>
+          <div class="menu-item">
+            <div class="menu-name">Momos de Frango (6 un)</div>
+            <div class="menu-desc">Bolinhas de massa cozidas ao vapor com molho</div>
+            <div class="menu-price">€6,99</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-name">Momos de Vegetais (8 un)</div>
+            <div class="menu-desc">Vegetais mistos e ervas aromáticas</div>
+            <div class="menu-price">€5,99</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-name">Samosas (4 un)</div>
+            <div class="menu-desc">Pastel crocante com recheio de batata temperada</div>
+            <div class="menu-price">€4,99</div>
+          </div>
+        </div>
+
+        <div class="menu-category">
+          <h3>Pratos Principais</h3>
+          <div class="menu-item">
+            <div class="menu-name">Muttaan Thali</div>
+            <div class="menu-desc">Curry de cabra com arroz e dal</div>
+            <div class="menu-price">€12,99</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-name">Butter Chicken</div>
+            <div class="menu-desc">Frango macio em molho de tomate cremoso</div>
+            <div class="menu-price">€11,99</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-name">Chepti Bhat</div>
+            <div class="menu-desc">Arroz temperado com vegetais</div>
+            <div class="menu-price">€8,99</div>
+          </div>
+        </div>
+
+        <div class="menu-category">
+          <h3>Especiais Nepaleses</h3>
+          <div class="menu-item">
+            <div class="menu-name">Newari Kwa</div>
+            <div class="menu-desc">Carne temperada com batatas</div>
+            <div class="menu-price">€13,99</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-name">Sukuti</div>
+            <div class="menu-desc">Curry de carne seca com especiarias</div>
+            <div class="menu-price">€12,99</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-name">Bara</div>
+            <div class="menu-desc">Panquecas de lentilha e vegetais</div>
+            <div class="menu-price">€7,99</div>
+          </div>
+        </div>
+
+        <div class="menu-category">
+          <h3>Bebidas</h3>
+          <div class="menu-item">
+            <div class="menu-name">Mango Lassi</div>
+            <div class="menu-desc">Bebida de iogurte com manga</div>
+            <div class="menu-price">€4,99</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-name">Masala Chai</div>
+            <div class="menu-desc">Chá indiano temperado</div>
+            <div class="menu-price">€2,99</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-name">Refrigerantes</div>
+            <div class="menu-desc">Coca-Cola, Sprite, Fanta</div>
+            <div class="menu-price">€2,49</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-cta reveal d2">
+        <a href="https://wa.me/351920096331?text=Olá%20Himalayan%20Restaurant%2C%20pode%20enviar-me%20o%20menu%20completo" target="_blank" class="btn btn-primary">Ver Menu Completo no WhatsApp</a>
+      </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-choose" id="why">
+      <span class="section-label">Porque Escolher-nos</span>
+      <h2 class="reveal">O Que Nos Torna <em>Especiais</em></h2>
+
+      <div class="why-choose-grid">
+        <div class="why-card reveal d1">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2l2.6 6.9H22l-5.6 4.1 2.1 6.9L12 15.8 5.5 19.9l2.1-6.9L2 8.9h7.4L12 2z"/>
+            </svg>
+          </div>
+          <h3>Receitas Autênticas</h3>
+          <p>Sabores tradicionais nepaleses preparados por chefs experientes usando receitas ancestrais e ingredientes de qualidade.</p>
+        </div>
+
+        <div class="why-card reveal d2">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/>
+              <path d="M9 22V12h6v10"/>
+            </svg>
+          </div>
+          <h3>Ambiente Acolhedor</h3>
+          <p>Espaço acolhedor e convidativo criado para se sentir em casa e criar memórias duradouras.</p>
+        </div>
+
+        <div class="why-card reveal d3">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 2 5 14h7l-1 8 9-12h-7l1-8z"/>
+            </svg>
+          </div>
+          <h3>Serviço Rápido</h3>
+          <p>Opções rápidas para levar e entrega sem comprometer a qualidade ou frescura da refeição.</p>
+        </div>
+
+        <div class="why-card reveal d4">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M9 13a3 3 0 0 0 6 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 10h.01M15 10h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Equipa Amigável</h3>
+          <p>A nossa equipa dedica-se a proporcionar atendimento excecional e ajudar a descobrir os seus pratos favoritos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hours Section -->
+    <section class="hours" id="hours">
+      <span class="section-label" style="color: var(--secondary-blue);">Horários</span>
+      <h2 style="color: white;">Visite-nos <em>em Breve</em></h2>
+
+      <div class="hours-content">
+        <div class="hours-item reveal d1">
+          <div class="hours-day">Segunda - Sexta</div>
+          <div class="hours-time">12:00 - 23:00</div>
+        </div>
+        <div class="hours-item reveal d2">
+          <div class="hours-day">Sábado - Domingo</div>
+          <div class="hours-time">13:00 - 23:00</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location" id="location">
+      <span class="section-label">Localização</span>
+      <h2 class="reveal">Encontre-<em>nos</em></h2>
+
+      <div class="location-grid">
+        <div class="location-map reveal d1" style="background-image: url('foto comida 3.webp'); background-size: cover; background-position: center;"></div>
+        <div class="location-info">
+          <h3 class="reveal d2">Visite o Nosso Restaurante</h3>
+          <div class="location-details reveal d3">
+            <p><strong>Himalayan Dine-In Restaurant</strong></p>
+            <p>Rua 14 de Outubro 617<br>Vila Nova de Gaia<br>4430 Vila Nova de Gaia<br>Portugal</p>
+            <p style="margin-top: 1.5rem;"><strong>Telefone:</strong> +351 920 096 331</p>
+            <p><strong>Email:</strong> info@himalayandine-in.com</p>
+          </div>
+          <a href="https://www.google.com/maps/search/Himalayan+Dine-In+Restaurant+Rua+14+de+Outubro+617+Vila+Nova+de+Gaia" target="_blank" class="btn btn-primary reveal d4" style="display: inline-block; margin-top: 1.5rem;">Ver Mapa</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Block -->
+    <section style="background: linear-gradient(180deg, var(--light-sky) 0%, rgba(240, 248, 253, 0.9) 100%);">
+      <div class="cta-block reveal">
+        <h2>Pronto para uma Experiência?</h2>
+        <p>Reservar a sua mesa ou encomendar agora e prove os sabores autênticos do Nepal</p>
+        <a href="https://wa.me/351920096331?text=Olá%20Himalayan%20Restaurant%2C%20gostaria%20de%20fazer%20uma%20reserva" target="_blank" class="btn btn-primary">Reservar Agora no WhatsApp</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-col">
+          <h4>Himalayan Dine-In</h4>
+          <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); line-height: 1.6;">Culinária nepalesa autêntica num ambiente acolhedor e convidativo. Experimente os sabores dos Himalaias.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Links Rápidos</h4>
+          <ul>
+            <li><a href="#about">Sobre</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#hours">Horários</a></li>
+            <li><a href="#location">Localização</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="#hero">Comer no Local</a></li>
+            <li><a href="#hero">Para Levar</a></li>
+            <li><a href="#hero">Entrega</a></li>
+            <li><a href="#hero">Eventos Privados</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="tel:+351920096331">+351 920 096 331</a></li>
+            <li><a href="mailto:info@himalayandine-in.com">info@himalayandine-in.com</a></li>
+            <li><a href="https://wa.me/351920096331?text=Olá" target="_blank">WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Himalayan Dine-In Restaurant. Todos os direitos reservados. | Feito com ❤️</p>
+      </div>
+    </footer>
+
+    <script>
+        /* ─── Menu Toggle ─── */
+        const navMobileBtn = document.getElementById('navMobileBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        function toggleMenu() {
+          navMobileBtn.classList.toggle('active');
+          mobileMenu.classList.toggle('active');
+          document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        navMobileBtn.addEventListener('click', toggleMenu);
+
+        /* ─── Header Scroll Effect ─── */
+        const header = document.getElementById('header');
+        let lastScrollY = 0;
+
+        window.addEventListener('scroll', () => {
+          lastScrollY = window.scrollY;
+          if (lastScrollY > 50) {
+            header.classList.add('scrolled');
+          } else {
+            header.classList.remove('scrolled');
+          }
+        });
+
+        /* ─── Smooth Scroll for Anchor Links ─── */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href !== '#' && document.querySelector(href)) {
+              e.preventDefault();
+              const target = document.querySelector(href);
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              if (mobileMenu.classList.contains('active')) {
+                toggleMenu();
+              }
+            }
+          });
+        });
+
+        /* ─── Scroll Reveal Animation ─── */
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.15,
+          rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => {
+          revealObserver.observe(el);
+        });
+
+        /* ─── Gallery Hover Animation ─── */
+        document.querySelectorAll('.gallery-card').forEach(card => {
+          card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-12px) scale(1.02)';
+          });
+          card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+          });
+        });
+
+        /* ─── Close Mobile Menu on Escape ─── */
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            toggleMenu();
+          }
+        });
+
+        /* ─── Number Counter Animation ─── */
+        function animateCounter(el, target, duration = 1500) {
+          let start = 0;
+          const increment = target / (duration / 16);
+          
+          const timer = setInterval(() => {
+            start += increment;
+            if (start >= target) {
+              el.textContent = target;
+              clearInterval(timer);
+            } else {
+              el.textContent = Math.floor(start);
+            }
+          }, 16);
+        }
+
+        /* ─── Initialize ─── */
+        console.log('Himalayan Dine-In Restaurant Website loaded successfully');
+    </script>
+</body>
+</html>
